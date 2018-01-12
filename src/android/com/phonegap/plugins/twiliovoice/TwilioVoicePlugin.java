@@ -597,7 +597,7 @@ public class TwilioVoicePlugin extends CordovaPlugin {
         if (intent != null && intent.getAction() != null && intent.getAction().equals(ACTION_INCOMING_CALL)) {
             mCallInvite = intent.getParcelableExtra(INCOMING_CALL_INVITE);
             Log.d(TAG, "Call Invite: " + mCallInvite.toString());
-            if (!mCallInvite.isCancelled()) {
+            if (mCallInvite != null && (mCallInvite.getState() == CallInvite.State.PENDING)) {
                 SoundPoolManager.getInstance(cordova.getActivity()).playRinging();
                 NotificationManager mNotifyMgr = 
 		        (NotificationManager) cordova.getActivity().getSystemService(Activity.NOTIFICATION_SERVICE);

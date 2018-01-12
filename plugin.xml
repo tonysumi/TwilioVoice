@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova.plugin.twiliovoice" version="1.0.0" 
+	xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<name>TwilioVoice</name>
+
+	<js-module name="TwilioVoice" src="www/TwilioVoice.js">
+		<clobbers target="cordova.plugins.TwilioVoice" />
+	</js-module>
+
+
+	 <!-- android -->
+	<platform name="android">
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="TwilioVoice">
+				<param name="android-package" value="cordova.plugin.twiliovoice.TwilioVoice" />
+			</feature>
+		</config-file>
+		
+
+		<config-file parent="/*" target="AndroidManifest.xml">
+			<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+            <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
+            <uses-permission android:name="$PACKAGE_NAME.permission.C2D_MESSAGE" />
+            <permission android:name="$PACKAGE_NAME.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+		</config-file>
+
+        <framework src="com.twilio:voice-android:2.0.2"/>
+
+		<source-file src="src/android/TwilioVoice.java" target-dir="src/cordova/plugin/twiliovoice/TwilioVoice" />
+		
+	</platform>
+
+</plugin>

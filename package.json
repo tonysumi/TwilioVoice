@@ -1,0 +1,25 @@
+{
+  "name": "TwilioVoice",
+  "version": "1.0.0",
+  "description": "Twilio Programmable voice sdk for Android",
+  "cordova": {
+    "id": "cordova.plugin.twiliovoice",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tonysumi/twilio-voice-phonegap-plugin.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "Tony Sumi",
+  "license": "SaBRO",
+  "bugs": {
+    "url": "https://github.com/tonysumi/twilio-voice-phonegap-plugin/issues"
+  },
+  "homepage": "https://github.com/tonysumi/twilio-voice-phonegap-plugin#readme"
+}

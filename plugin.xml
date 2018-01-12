@@ -26,7 +26,6 @@
 			</feature>
 		</config-file>
 		
-        <dependency id="phonegap-plugin-push"/>
 
 		<config-file parent="/*" target="AndroidManifest.xml">
 			<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>

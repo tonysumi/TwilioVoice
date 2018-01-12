@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tonysumi/twilio-voice-phonegap-plugin.git"
+    "url": "git+https://github.com/tonysumi/TwilioVoice.git"
   },
   "keywords": [
     "ecosystem:cordova",
@@ -19,7 +19,7 @@
   "author": "Tony Sumi",
   "license": "SaBRO",
   "bugs": {
-    "url": "https://github.com/tonysumi/twilio-voice-phonegap-plugin/issues"
+    "url": "https://github.com/tonysumi/TwilioVoice/issues"
   },
-  "homepage": "https://github.com/tonysumi/twilio-voice-phonegap-plugin#readme"
+  "homepage": "https://github.com/tonysumi/TwilioVoice#readme"
 }

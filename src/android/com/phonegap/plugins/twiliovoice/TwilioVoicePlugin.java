@@ -588,7 +588,7 @@ public class TwilioVoicePlugin extends CordovaPlugin {
      * Register your GCM token with Twilio to enable receiving incoming calls via GCM
      */
     private void register() {
-        Voice.register(cordova.getActivity().getApplicationContext(), mAccessToken, mGCMToken, mRegistrationListener);
+        Voice.register(cordova.getActivity().getApplicationContext(), mAccessToken,Voice.RegistrationChannel.GCM, mGCMToken, mRegistrationListener);
     }
 
     // Process incoming call invites

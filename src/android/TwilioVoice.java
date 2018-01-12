@@ -16,7 +16,7 @@ import com.twilio.voice.CallInvite;
 import com.twilio.voice.CallState;
 import com.twilio.voice.RegistrationException;
 import com.twilio.voice.RegistrationListener;
-import com.twilio.voice.Voice
+import com.twilio.voice.Voice;
 
 /**
  * This class echoes a string called from JavaScript.

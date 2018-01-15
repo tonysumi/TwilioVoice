@@ -594,18 +594,18 @@ public class TwilioVoicePlugin extends CordovaPlugin {
 	private void handleIncomingCallIntent(Intent intent) {
 	 if (intent != null && intent.getAction() != null) {
 	             if (intent.getAction() == ACTION_INCOMING_CALL) {
-	                 activeCallInvite = intent.getParcelableExtra(INCOMING_CALL_INVITE);
-	              if (activeCallInvite != null && (activeCallInvite.getState() == CallInvite.State.PENDING)) {
+	                 mCallInvite = intent.getParcelableExtra(INCOMING_CALL_INVITE);
+	              if (mCallInvite != null && (mCallInvite.getState() == CallInvite.State.PENDING)) {
 						SoundPoolManager.getInstance(cordova.getActivity()).playRinging();
 						
 						NotificationManager mNotifyMgr = (NotificationManager) cordova.getActivity().getSystemService(Activity.NOTIFICATION_SERVICE);
 						mNotifyMgr.cancel(intent.getIntExtra(INCOMING_CALL_NOTIFICATION_ID, 0));
 						JSONObject callInviteProperties = new JSONObject();
 						try {
-							callInviteProperties.putOpt("from", activeCallInvite.getFrom());
-							callInviteProperties.putOpt("to", activeCallInvite.getTo());
-							callInviteProperties.putOpt("callSid", activeCallInvite.getCallSid());
-							String callInviteState = getCallInviteState(activeCallInvite.getState());
+							callInviteProperties.putOpt("from", mCallInvite.getFrom());
+							callInviteProperties.putOpt("to", mCallInvite.getTo());
+							callInviteProperties.putOpt("callSid", mCallInvite.getCallSid());
+							String callInviteState = getCallInviteState(mCallInvite.getState());
 							callInviteProperties.putOpt("state",callInviteState);
 						} catch (JSONException e) {
 							aLog.e(TAG,e.getMessage(),e);

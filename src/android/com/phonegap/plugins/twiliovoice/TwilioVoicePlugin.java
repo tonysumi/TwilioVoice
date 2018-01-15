@@ -608,7 +608,7 @@ public class TwilioVoicePlugin extends CordovaPlugin {
 							String callInviteState = getCallInviteState(mCallInvite.getState());
 							callInviteProperties.putOpt("state",callInviteState);
 						} catch (JSONException e) {
-							aLog.e(TAG,e.getMessage(),e);
+							Log.e(TAG,e.getMessage(),e);
 						}
 						Log.d(TAG,"oncallinvitereceived");
 						javascriptCallback("oncallinvitereceived", callInviteProperties, mInitCallbackContext);

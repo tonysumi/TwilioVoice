@@ -74,6 +74,10 @@
                 target-dir="src/com/phonegap/plugins/twiliovoice/fcm" />
 
         <source-file src="sounds/ringing.wav" target-dir="res/raw"/>
+        <source-file src="sounds/disconnect.wav" target-dir="res/raw"/>
+        <source-file src="sounds/incoming.wav" target-dir="res/raw"/>
+        <source-file src="sounds/outgoing.wav" target-dir="res/raw"/>
+
 
 	</platform>
 

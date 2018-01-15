@@ -45,8 +45,10 @@ public class SoundPoolManager {
             }
 
         });
-        ringingSoundId = soundPool.load(context, R.raw.incoming, 1);
-        disconnectSoundId = soundPool.load(context, R.raw.disconnect, 1);
+        int ringingResourceId =  context.getResources().getIdentifier("ringing", "raw", context.getPackageName());
+        ringingSoundId = soundPool.load(context, ringingResourceId , 1);
+        int disconnectResourceId =  context.getResources().getIdentifier("disconnect", "raw", context.getPackageName());
+        disconnectSoundId = soundPool.load(context, disconnectResourceId, 1);
     }
 
     public static SoundPoolManager getInstance(Context context) {
@@ -65,7 +67,7 @@ public class SoundPoolManager {
 
     public void stopRinging() {
         if (playing) {
-            soundPool.stop(ringingStreamId);
+            soundPool.stop(disconnectSoundId);
             playing = false;
         }
     }

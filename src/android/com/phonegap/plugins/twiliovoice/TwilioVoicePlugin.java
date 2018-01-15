@@ -591,9 +591,6 @@ public class TwilioVoicePlugin extends CordovaPlugin {
             Log.i(TAG, "Registering with FCM");
             Voice.register(cordova.getActivity().getApplicationContext(), TWILIO_ACCESS_TOKEN, Voice.RegistrationChannel.FCM, fcmToken, registrationListener);
         }
-        else(fcmToken == null) {
-                javascriptErrorback(0, "Did not receive GCM Token - unable to receive calls", mInitCallbackContext);
-            }
     }
 
     // Process incoming call invites

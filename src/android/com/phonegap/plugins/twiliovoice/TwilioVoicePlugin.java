@@ -77,9 +77,6 @@ public class TwilioVoicePlugin extends CordovaPlugin {
 	// Marshmallow Permissions
 	public static final String RECORD_AUDIO = Manifest.permission.RECORD_AUDIO;
 	public static final int RECORD_AUDIO_REQ_CODE = 0;
-    
-    // Google Play Services Request Magic Number
-    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
 
     // Constants for Intents and Broadcast Receivers
@@ -157,7 +154,7 @@ public class TwilioVoicePlugin extends CordovaPlugin {
 			mInitCallbackContext = callbackContext;
 
             IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(ACTION_SET_GCM_TOKEN);
+            intentFilter.addAction(ACTION_FCM_TOKEN);
             intentFilter.addAction(ACTION_INCOMING_CALL);
             LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(cordova.getActivity());
             lbm.registerReceiver(mBroadcastReceiver, intentFilter);
@@ -165,7 +162,7 @@ public class TwilioVoicePlugin extends CordovaPlugin {
 
 			if(cordova.hasPermission(RECORD_AUDIO))
 			{
-				startGCMRegistration();
+				registerForCallInvites();
 			}
 			else
 			{
@@ -320,6 +317,9 @@ public class TwilioVoicePlugin extends CordovaPlugin {
 		return json;
 	}
 
+	/*
+     * Accept an incoming Call
+     */
 	private void acceptCallInvite(JSONArray arguments, final CallbackContext callbackContext) {
 		if (mCallInvite == null) {
 			callbackContext.sendPluginResult(new PluginResult(
@@ -349,6 +349,9 @@ public class TwilioVoicePlugin extends CordovaPlugin {
 		});
 	}
 	
+    /*
+     * Disconnect from Call
+     */
 	private void disconnect(JSONArray arguments, final CallbackContext callbackContext) {
 		if (mCall == null) {
 			callbackContext.sendPluginResult(new PluginResult(
@@ -565,7 +568,7 @@ public class TwilioVoicePlugin extends CordovaPlugin {
 		switch(requestCode)
 		{
 			case RECORD_AUDIO_REQ_CODE:
-                startGCMRegistration();
+                registerForCallInvites();
 				break;
 		}
 	}
@@ -653,7 +656,7 @@ public class TwilioVoicePlugin extends CordovaPlugin {
 			try {
 				callProperties.putOpt("from", call.getFrom());
 				callProperties.putOpt("to", call.getTo());
-				callProperties.putOpt("callSid", call.getCallSid());
+				callProperties.putOpt("callSid", call.getSid());
 				callProperties.putOpt("isMuted", call.isMuted());
 				String callState = getCallState(call.getState());
 				callProperties.putOpt("state",callState);
@@ -663,16 +666,25 @@ public class TwilioVoicePlugin extends CordovaPlugin {
 			javascriptCallback("oncalldidconnect",callProperties,mInitCallbackContext);
 		}
 
+		/*
+		The call failed to connect.
+		*/
+
 		@Override
-		public void onDisconnected(Call call) {
+		public void onConnectFailure(Call call, CallException exception) {
 			mCall = null;
-			javascriptCallback("oncalldiddisconnect",mInitCallbackContext);
+			javascriptErrorback(exception.getErrorCode(), exception.getMessage(), mInitCallbackContext);
 		}
+
+
+		/*
+		The call was disconnected.
+		*/
 
 		@Override
 		public void onDisconnected(Call call, CallException exception) {
 			mCall = null;
-			javascriptErrorback(exception.getErrorCode(), exception.getMessage(), mInitCallbackContext);
+			javascriptCallback("oncalldiddisconnect",mInitCallbackContext);
 		}
 	};
 
@@ -700,37 +712,5 @@ public class TwilioVoicePlugin extends CordovaPlugin {
 
 		return null;
 	}
-
-
-    private void startGCMRegistration() {
-        Log.d(TAG, "Starting GCM Registration");
-        if (checkPlayServices()) {
-            Log.d(TAG, "Found Google Play Services");
-            Intent intent = new Intent(cordova.getActivity(), GCMRegistrationService.class);
-            cordova.getActivity().startService(intent);
-        }
-    }
-
-    /**
-     * Check the device to make sure it has the Google Play Services APK. If
-     * it doesn't, display a dialog that allows users to download the APK from
-     * the Google Play Store or enable it in the device's system settings.
-     */
-    private boolean checkPlayServices() {
-        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
-        int resultCode = apiAvailability.isGooglePlayServicesAvailable(cordova.getActivity());
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (apiAvailability.isUserResolvableError(resultCode)) {
-                apiAvailability.getErrorDialog(cordova.getActivity(), resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
-                        .show();
-            } else {
-                Log.e(TAG, "This device is not supported for Google Play Services.");
-                javascriptErrorback(0, "This device is not supported for Google Play Services.", mInitCallbackContext);
-
-            }
-            return false;
-        }
-        return true;
-    }
 
 }

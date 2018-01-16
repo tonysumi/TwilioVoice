@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "465487029930",
+    "firebase_url": "https://twiliovoice-57d9e.firebaseio.com",
+    "project_id": "twiliovoice-57d9e",
+    "storage_bucket": "twiliovoice-57d9e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465487029930:android:40fe5ce4ecda3357",
+        "android_client_info": {
+          "package_name": "io.allip.mobiledev.TwilioSDKTest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "465487029930-ncdvab0hbrd8gjv3fard65mkohngo6jn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxzlS85b4v2twfdH5eT8Zbt_OUsoOCVqQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

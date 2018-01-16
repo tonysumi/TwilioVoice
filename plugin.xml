@@ -77,6 +77,7 @@
         <source-file src="sounds/disconnect.wav" target-dir="res/raw"/>
         <source-file src="sounds/incoming.wav" target-dir="res/raw"/>
         <source-file src="sounds/outgoing.wav" target-dir="res/raw"/>
+        <source-file src="google-services.json" target-dir="./"/>
 
 
 	</platform>

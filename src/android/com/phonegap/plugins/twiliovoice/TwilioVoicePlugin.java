@@ -17,6 +17,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.twilio.voice.Call;
 import com.twilio.voice.CallState;
@@ -583,6 +584,7 @@ public class TwilioVoicePlugin extends CordovaPlugin {
      *
      */
     private void registerForCallInvites() {
+		FirebaseApp.initializeApp(cordova.getActivity().getApplicationContext());
         final String fcmToken = FirebaseInstanceId.getInstance().getToken();
         if (fcmToken != null) {
             Log.i(TAG, "Registering with FCM");

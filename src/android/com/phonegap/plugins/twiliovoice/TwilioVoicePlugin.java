@@ -146,8 +146,8 @@ public class TwilioVoicePlugin extends CordovaPlugin {
 			final CallbackContext callbackContext) throws JSONException {
 		if ("initializeWithAccessToken".equals(action)) {
             Log.d(TAG, "Initializing with Access Token");
-
 			mAccessToken = args.optString(0);
+			Log.d(TAG, "mAccessToken: "+mAccessToken);
 
 			mInitCallbackContext = callbackContext;
 
@@ -223,7 +223,7 @@ public class TwilioVoicePlugin extends CordovaPlugin {
 	 * 
 	 */
 	private void initTwilioVoiceClient(CallbackContext callbackContext) {
-		//Twilio.initialize(cordova.getActivity().getApplicationContext(), this);
+		Twilio.initialize(cordova.getActivity().getApplicationContext(), this);
 	}
 
 	/**
@@ -584,8 +584,11 @@ public class TwilioVoicePlugin extends CordovaPlugin {
      *
      */
     private void registerForCallInvites() {
+        Log.d(TAG, "registerForCallInvites() called");
 		FirebaseApp.initializeApp(cordova.getActivity().getApplicationContext());
+        Log.d(TAG, "FirebaseApp.initializeApp");
         final String fcmToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "fcmToken: "+fcmToken);
         if (fcmToken != null) {
             Log.i(TAG, "Registering with FCM");
             Voice.register(cordova.getActivity().getApplicationContext(), TWILIO_ACCESS_TOKEN, Voice.RegistrationChannel.FCM, fcmToken, registrationListener);

@@ -223,7 +223,7 @@ public class TwilioVoicePlugin extends CordovaPlugin {
 	 * 
 	 */
 	private void initTwilioVoiceClient(CallbackContext callbackContext) {
-		Twilio.initialize(cordova.getActivity().getApplicationContext(), this);
+		//Twilio.initialize(cordova.getActivity().getApplicationContext(), this);
 	}
 
 	/**

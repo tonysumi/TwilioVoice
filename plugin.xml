@@ -90,7 +90,7 @@
         <config-file target="*-Info.plist" parent="TVPEnableCallKit">
           <string>$ENABLE_CALL_KIT</string>
         </config-file>
-
+<!-- 
         <!-- Add push entitlements -->
         <config-file target="*/Entitlements-Debug.plist" parent="aps-environment">
           <string>development</string>
@@ -98,7 +98,7 @@
         <config-file target="*/Entitlements-Release.plist" parent="aps-environment">
           <string>production</string>
         </config-file>
-
+ -->
         <header-file src="src/ios/TwilioVoicePlugin.h" />
         <source-file src="src/ios/TwilioVoicePlugin.m" />
 

@@ -90,8 +90,8 @@
         <config-file target="*-Info.plist" parent="TVPEnableCallKit">
           <string>$ENABLE_CALL_KIT</string>
         </config-file>
-<!-- 
-        <!-- Add push entitlements -->
+
+        <!-- Add push entitlements 
         <config-file target="*/Entitlements-Debug.plist" parent="aps-environment">
           <string>development</string>
         </config-file>

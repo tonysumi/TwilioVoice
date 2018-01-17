@@ -61,7 +61,7 @@
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
             <feature name="TwilioVoice">
-                <param name="ios-package" value="cordova.plugin.twiliovoice.TwilioVoice" />
+                <param name="ios-package" value="TwilioVoice" />
             </feature>
         </config-file>
 

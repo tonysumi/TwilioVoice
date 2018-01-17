@@ -1,11 +1,12 @@
 {
   "name": "TwilioVoice",
   "version": "1.0.0",
-  "description": "Twilio Programmable voice sdk for Android",
+  "description": "Twilio Programmable voice sdk for Android and iOS",
   "cordova": {
     "id": "cordova.plugin.twiliovoice",
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   },
   "repository": {
@@ -14,7 +15,8 @@
   },
   "keywords": [
     "ecosystem:cordova",
-    "cordova-android"
+    "cordova-android",
+    "cordova-ios"
   ],
   "author": "Tony Sumi",
   "license": "SaBRO",

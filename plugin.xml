@@ -1,85 +1,111 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugin id="cordova.plugin.twiliovoice" version="1.0.0" 
-	xmlns="http://apache.org/cordova/ns/plugins/1.0" 
-	xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>TwilioVoice</name>
+    <js-module name="TwilioVoice" src="www/TwilioVoicePlugin.js">
+        <clobbers target="cordova.plugins.TwilioVoice" />
+    </js-module>
+    <preference default="" name="FCM_SENDER_ID" />
+    <preference default="" name="INCOMING_CALL_APP_NAME" />
+    <preference default="false" name="ENABLE_CALL_KIT" />
 
-	<name>TwilioVoice</name>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="TwilioVoice">
+                <param name="android-package" value="cordova.plugin.twiliovoice.TwilioVoice" />
+            </feature>
+        </config-file>
 
-	<js-module name="TwilioVoice" src="www/TwilioVoicePlugin.js">
-		<clobbers target="cordova.plugins.TwilioVoice" />
-	</js-module>
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            
+            <service android:name="com.phonegap.plugins.twiliovoice.fcm.VoiceFirebaseMessagingService">
+                <intent-filter>
+                    <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                </intent-filter>
+            </service>
 
- <!-- Necessary for Android Push notification support with FCM for Twilio Voice -->
-    <preference name="FCM_SENDER_ID" default=""/>
+            <service android:name="com.phonegap.plugins.twiliovoice.fcm.VoiceFirebaseInstanceIDService">
+                <intent-filter>
+                    <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+                </intent-filter>
+            </service>
 
-    <!-- Necessary to set app name for incoming call notifications on Android and CallKit on iOS -->
-    <preference name="INCOMING_CALL_APP_NAME" default=""/>
+        </config-file>
 
-    <!-- Necessary to enable CallKit on iOS -->
-    <preference name="ENABLE_CALL_KIT" default="false"/>
+        <config-file parent="/widget" target="res/xml/config.xml">
+            <feature name="TwilioVoicePlugin">
+                <param name="android-package" value="com.phonegap.plugins.twiliovoice.TwilioVoicePlugin" />
+            </feature>
+        </config-file>
 
-	 <!-- android -->
-	<platform name="android">
-		<config-file parent="/*" target="res/xml/config.xml">
-			<feature name="TwilioVoice">
-				<param name="android-package" value="cordova.plugin.twiliovoice.TwilioVoice" />
-			</feature>
-		</config-file>
-
-
-    <config-file target="AndroidManifest.xml" parent="/manifest/application">
-        <!-- [START fcm_listener] -->
-        <service
-            android:name="com.phonegap.plugins.twiliovoice.fcm.VoiceFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-        <!-- [END fcm_listener] -->
-
-        <!-- [START instanceId_listener] -->
-        <service
-            android:name="com.phonegap.plugins.twiliovoice.fcm.VoiceFirebaseInstanceIDService" >
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-        <!-- [END instanceId_listener] --> 
-
-    </config-file>
-
-    <config-file target="res/xml/config.xml" parent="/widget">
-        <feature name="TwilioVoicePlugin">
-          <param name="android-package" value="com.phonegap.plugins.twiliovoice.TwilioVoicePlugin"/>
-        </feature>
-    </config-file>
-
-        <config-file target="res/values/strings.xml" parent="/resources">
+        <config-file parent="/resources" target="res/values/strings.xml">
             <string name="fcm_sender_id" translatable="false">$FCM_SENDER_ID</string>
             <string name="incoming_call_app_name" translatable="false">$INCOMING_CALL_APP_NAME</string>
         </config-file>
+
+        <framework src="com.google.firebase:firebase-messaging:10.0.1" />
+        <framework src="com.twilio:voice-android:2.0.3" />
+
+        <source-file src="src/android/com/phonegap/plugins/twiliovoice/TwilioVoicePlugin.java" target-dir="src/com/phonegap/plugins/twiliovoice" />
+        <source-file src="src/android/com/phonegap/plugins/twiliovoice/SoundPoolManager.java" target-dir="src/com/phonegap/plugins/twiliovoice" />
+        <source-file src="src/android/com/phonegap/plugins/twiliovoice/fcm/VoiceFirebaseInstanceIDService.java" target-dir="src/com/phonegap/plugins/twiliovoice/fcm" />
+        <source-file src="src/android/com/phonegap/plugins/twiliovoice/fcm/VoiceFirebaseMessagingService.java" target-dir="src/com/phonegap/plugins/twiliovoice/fcm" />
+        <source-file src="sounds/ringing.wav" target-dir="res/raw" />
+        <source-file src="sounds/disconnect.wav" target-dir="res/raw" />
+        <source-file src="sounds/incoming.wav" target-dir="res/raw" />
+        <source-file src="sounds/outgoing.wav" target-dir="res/raw" />
+        <source-file src="google-services.json" target-dir="./" />
+    </platform>
+
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="TwilioVoice">
+                <param name="ios-package" value="TwilioVoice" />
+            </feature>
+        </config-file>
+
+        <framework src="TwilioVoice" type="podspec" spec="=2.0.1" />
+
+
+         <!-- Add support for background VOIP and audio to the plist -->
+        <config-file target="*-Info.plist" parent="UIBackgroundModes">
+            <array>
+                <string>voip</string>
+                <string>audio</string>
+            </array>
+        </config-file>
+
+        <!-- Add Privacy Description for Microphone Usage -->
+        <config-file target="*-Info.plist" parent="NSMicrophoneUsageDescription">
+          <string>The app uses the microphone for voice calls</string>
+        </config-file>
+
+        <!-- Add Incoming Call App Name for CallKit -->
+        <config-file target="*-Info.plist" parent="TVPIncomingCallAppName">
+          <string>$INCOMING_CALL_APP_NAME</string>
+        </config-file>
         
-        <framework src="com.google.firebase:firebase-messaging:10.0.1" /> 
-        <framework src="com.twilio:voice-android:2.0.3"/>
+        <!-- Add Enable CallKit Preference to plist -->
+        <config-file target="*-Info.plist" parent="TVPEnableCallKit">
+          <string>$ENABLE_CALL_KIT</string>
+        </config-file>
 
-		<source-file src="src/android/com/phonegap/plugins/twiliovoice/TwilioVoicePlugin.java"
-                target-dir="src/com/phonegap/plugins/twiliovoice" />
+        <!-- Add push entitlements -->
+        <config-file target="*/Entitlements-Debug.plist" parent="aps-environment">
+          <string>development</string>
+        </config-file>
+        <config-file target="*/Entitlements-Release.plist" parent="aps-environment">
+          <string>production</string>
+        </config-file>
 
-        <source-file src="src/android/com/phonegap/plugins/twiliovoice/SoundPoolManager.java"
-                target-dir="src/com/phonegap/plugins/twiliovoice" />
+        <header-file src="src/ios/TwilioVoicePlugin.h" />
+        <source-file src="src/ios/TwilioVoicePlugin.m" />
 
-        <source-file src="src/android/com/phonegap/plugins/twiliovoice/fcm/VoiceFirebaseInstanceIDService.java"
-                target-dir="src/com/phonegap/plugins/twiliovoice/fcm" />
-        <source-file src="src/android/com/phonegap/plugins/twiliovoice/fcm/VoiceFirebaseMessagingService.java"
-                target-dir="src/com/phonegap/plugins/twiliovoice/fcm" />
+        <resource-file src="sounds/ringing.wav" />
+        <resource-file src="sounds/disconnect.wav" />
+        <resource-file src="sounds/incoming.wav" />
+        <resource-file src="sounds/outgoing.wav" />
 
-        <source-file src="sounds/ringing.wav" target-dir="res/raw"/>
-        <source-file src="sounds/disconnect.wav" target-dir="res/raw"/>
-        <source-file src="sounds/incoming.wav" target-dir="res/raw"/>
-        <source-file src="sounds/outgoing.wav" target-dir="res/raw"/>
-        <source-file src="google-services.json" target-dir="./"/>
-
-
-	</platform>
-
+    </platform>
 </plugin>

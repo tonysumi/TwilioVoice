@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova.plugin.twiliovoice" version="1.0.0" 
+<plugin id="cordova.plugin.twiliovoice" 
+    version="1.0.0" 
     xmlns="http://apache.org/cordova/ns/plugins/1.0" 
     xmlns:android="http://schemas.android.com/apk/res/android">
+    
     <name>TwilioVoice</name>
     <js-module name="TwilioVoice" src="www/TwilioVoicePlugin.js">
         <clobbers target="cordova.plugins.TwilioVoice" />
@@ -64,8 +66,8 @@
                 <param name="ios-package" value="TwilioVoice" />
             </feature>
         </config-file>
-
-        <framework src="TwilioVoice" type="podspec" spec="~> 2.0.0" /> 
+        <framework src="TwilioVoice.framework" custom="true"/>
+       <!--  <framework src="TwilioVoice" type="podspec" spec="~> 2.0.0" />  -->
 
 
          <!-- Add support for background VOIP and audio to the plist -->

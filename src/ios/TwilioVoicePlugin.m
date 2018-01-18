@@ -108,8 +108,8 @@
             CXProviderConfiguration *configuration = [[CXProviderConfiguration alloc] initWithLocalizedName:incomingCallAppName];
             configuration.maximumCallGroups = 1;
             configuration.maximumCallsPerCallGroup = 1;
-            UIImage *callkitIcon = [UIImage imageNamed:@"logo.png"];
-            configuration.iconTemplateImageData = UIImagePNGRepresentation(callkitIcon);
+        //    UIImage *callkitIcon = [UIImage imageNamed:@"logo.png"];
+         //   configuration.iconTemplateImageData = UIImagePNGRepresentation(callkitIcon);
             configuration.ringtoneSound = @"ringing.wav";
             
             self.callKitProvider = [[CXProvider alloc] initWithConfiguration:configuration];
@@ -275,6 +275,7 @@
     [self javascriptCallback:@"oncallinvitereceived" withArguments:callInviteProperties];
 }
 */
+/*
 - (void)callInviteCancelled:(TVOCallInvite *)callInvite {
     NSLog(@"Call Invite Cancelled: %@", callInvite.uuid);
     if (self.enableCallKit) {
@@ -293,7 +294,7 @@
     NSLog(@"Twilio Voice Notification Error: %@", [error localizedDescription]);
     [self javascriptErrorback:error];
 }
-
+*/
 #pragma mark TVOCallDelegate
 - (void)callDidConnect:(TVOCall *)call {
     NSLog(@"Call Did Connect: %@", [call description]);
@@ -566,6 +567,7 @@
     }];
 }
 */
+/*
 - (void)performEndCallActionWithUUID:(NSUUID *)uuid {
     if (uuid == nil) {
         return;
@@ -585,5 +587,5 @@
         }
     }];
 }
-
+*/
 @end

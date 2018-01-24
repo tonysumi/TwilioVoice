@@ -67,6 +67,10 @@
             </feature>
         </config-file>
         <framework src="TwilioVoice.framework" custom="true" embed = "true"/>
+        <framework src="AudioToolbox.framework" />
+        <framework src="AVFoundation.framework" />
+        <framework src="CFNetwork.framework" />
+        <framework src="SystemConfiguration.framework" />
        <!--  <framework src="TwilioVoice" type="podspec" spec="~> 2.0.0" />  -->
 
 

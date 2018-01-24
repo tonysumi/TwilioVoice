@@ -60,6 +60,7 @@
     }
     
     if (!self.enableCallKit) {
+    	/*
         //ask for notification support
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
 		[center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound)
@@ -69,7 +70,7 @@
                                       NSLog(@"Notifications not granted");
                                   }
 }];
-
+*/
         // initialize ringtone player
         NSURL *ringtoneURL = [[NSBundle mainBundle] URLForResource:@"ringing.wav" withExtension:nil];
         if (ringtoneURL) {
@@ -268,9 +269,10 @@
     if (self.enableCallKit) {
         [self reportIncomingCallFrom:callInvite.from withUUID:callInvite.uuid];
     } else {
+    /*
         [self showNotification:callInvite.from];
         //play ringtone
-        [self.ringtonePlayer play];
+        [self.ringtonePlayer play];*/
     }
 
     [self javascriptCallback:@"oncallinvitereceived" withArguments:callInviteProperties];
@@ -282,9 +284,9 @@
     if (self.enableCallKit) {
         [self performEndCallActionWithUUID:callInvite.uuid];
     } else {
-        [self cancelNotification];
+     /*   [self cancelNotification];
         //pause ringtone
-        [self.ringtonePlayer pause];
+        [self.ringtonePlayer pause];*/
     }
     self.callInvite = nil;
     [self javascriptCallback:@"oncallinvitecanceled"];
@@ -302,11 +304,11 @@
     self.call = call;
 
     if (!self.enableCallKit) {
-        [self cancelNotification];
+      /*  [self cancelNotification];
         if ([self.ringtonePlayer isPlaying]) {
             //pause ringtone
             [self.ringtonePlayer pause];
-        }
+        }*/
     }
     
     NSMutableDictionary *callProperties = [NSMutableDictionary new];
@@ -394,7 +396,7 @@
     
     [self.commandDelegate sendPluginResult:result callbackId:self.callback];
 }
-
+/*
 #pragma mark - Local Notification methods used if CallKit isn't enabled
 
 -(void) showNotification:(NSString*)alertBody {
@@ -424,7 +426,7 @@
     [[UNUserNotificationCenter currentNotificationCenter] removeAllDeliveredNotifications];
 }
 
-
+*/
 
 #pragma mark - CXProviderDelegate - based on Twilio Voice with CallKit Quickstart ObjC
 

@@ -49,7 +49,7 @@
     NSLog(@"Initializing plugin");
 
     // set log level for development
- //   [[TwilioVoice sharedInstance] setLogLevel:TVOLogLevelVerbose];
+    [TwilioVoice setLogLevel:TVOLogLevelVerbose];
 
     // read in Enable CallKit preference
     NSString *enableCallKitPreference = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TVPEnableCallKit"] uppercaseString];
@@ -130,12 +130,12 @@
         if ([command.arguments count] > 1) {
             NSDictionary *params = command.arguments[1];
             NSLog(@"Making call to with params %@", params);
-            self.call = [[TwilioVoice sharedInstance] call:self.accessToken
+            self.call = [TwilioVoice call:self.accessToken
                                                 params:params
                                               delegate:self];
         } else {
             NSLog(@"Making call with no params");
-            self.call = [[TwilioVoice sharedInstance] call:self.accessToken
+            self.call = [TwilioVoice call:self.accessToken
                                                     params:@{}
                                                   delegate:self];
 
@@ -222,7 +222,7 @@
     if ([type isEqualToString:PKPushTypeVoIP]) {
         self.pushDeviceToken = [credentials.token description];
         NSLog(@"Updating push device token for VOIP: %@",self.pushDeviceToken);
-        [[TwilioVoice sharedInstance] registerWithAccessToken:self.accessToken
+        [TwilioVoice registerWithAccessToken:self.accessToken
                                                   deviceToken:self.pushDeviceToken completion:^(NSError * _Nullable error) {
             if (error) {
                 NSLog(@"An error occurred while registering: %@", [error localizedDescription]);
@@ -236,7 +236,7 @@
 - (void)pushRegistry:(PKPushRegistry *)registry didInvalidatePushTokenForType:(PKPushType)type {
     if ([type isEqualToString:PKPushTypeVoIP]) {
         NSLog(@"Invalidating push device token for VOIP: %@",self.pushDeviceToken);
-        [[TwilioVoice sharedInstance] unregisterWithAccessToken:self.accessToken
+        [TwilioVoice unregisterWithAccessToken:self.accessToken
                                                     deviceToken:self.pushDeviceToken completion:^(NSError * _Nullable error) {
             if (error) {
                 NSLog(@"An error occurred while unregistering: %@", [error localizedDescription]);
@@ -252,7 +252,7 @@
 - (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type {
     if ([type isEqualToString:PKPushTypeVoIP]) {
         NSLog(@"Received Incoming Push Payload for VOIP: %@",payload.dictionaryPayload);
-        [[TwilioVoice sharedInstance] handleNotification:payload.dictionaryPayload delegate:self];
+        [TwilioVoice handleNotification:payload.dictionaryPayload delegate:self];
     }
 }
 
@@ -443,7 +443,7 @@
 // All CallKit Integration Code comes from https://github.com/twilio/voice-callkit-quickstart-objc/blob/master/ObjCVoiceCallKitQuickstart/ViewController.m
 
 - (void)providerDidReset:(CXProvider *)provider {
-    [[TwilioVoice sharedInstance] audioEnabled];
+    [TwilioVoice audioEnabled];
 }
 
 - (void)providerDidBegin:(CXProvider *)provider {
@@ -451,11 +451,11 @@
 }
 
 - (void)provider:(CXProvider *)provider didActivateAudioSession:(AVAudioSession *)audioSession {
-    [[TwilioVoice sharedInstance] audioEnabled];
+    [TwilioVoice audioEnabled];
 }
 
 - (void)provider:(CXProvider *)provider didDeactivateAudioSession:(AVAudioSession *)audioSession {
-    [[TwilioVoice sharedInstance] audioEnabled];
+    [TwilioVoice audioEnabled];
 }
 
 - (void)provider:(CXProvider *)provider timedOutPerformingAction:(CXAction *)action {
@@ -464,9 +464,9 @@
 
 - (void)provider:(CXProvider *)provider performStartCallAction:(CXStartCallAction *)action {
     
-    [[TwilioVoice sharedInstance] configureAudioSession];
+    [TwilioVoice configureAudioSession];
     
-    self.call = [[TwilioVoice sharedInstance] call:self.accessToken
+    self.call = [TwilioVoice call:self.accessToken
                                             params:@{}
                                           delegate:self];
     
@@ -486,7 +486,7 @@
     // RCP: Workaround from https://forums.developer.apple.com/message/169511 suggests configuring audio in the
     //      completion block of the `reportNewIncomingCallWithUUID:update:completion:` method instead of in
     //      `provider:performAnswerCallAction:` per the WWDC examples.
-    // [[TwilioVoice sharedInstance] configureAudioSession];
+    // [TwilioVoice configureAudioSession];
     
     self.call = [self.callInvite acceptWithDelegate:self];
     if (self.call) {
@@ -500,7 +500,7 @@
 
 - (void)provider:(CXProvider *)provider performEndCallAction:(CXEndCallAction *)action {
     
-    [[TwilioVoice sharedInstance] audioEnabled];
+    [TwilioVoice audioEnabled];
     
     if (self.callInvite && self.callInvite.state == TVOCallInviteStatePending) {
         [self.callInvite reject];
@@ -562,7 +562,7 @@
             NSLog(@"Incoming call successfully reported.");
             
             // RCP: Workaround per https://forums.developer.apple.com/message/169511
-            [[TwilioVoice sharedInstance] configureAudioSession];
+            [TwilioVoice configureAudioSession];
         }
         else {
             NSLog(@"Failed to report incoming call successfully: %@.", [error localizedDescription]);

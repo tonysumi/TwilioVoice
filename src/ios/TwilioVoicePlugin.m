@@ -263,7 +263,7 @@
     NSDictionary *callInviteProperties = @{
                                            @"from":callInvite.from,
                                            @"to":callInvite.to,
-                                           @"callSid":callInvite.sid,
+                                           @"callSid":callInvite.callSid,
                                            @"state":[self stringFromCallInviteState:callInvite.state]
                                            };
     if (self.enableCallKit) {

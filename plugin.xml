@@ -66,7 +66,7 @@
                 <param name="ios-package" value="TwilioVoice" />
             </feature>
         </config-file>
-        <framework src="TwilioVoice.framework" custom="true"/>
+        <framework src="TwilioVoice.framework" custom="true" embed = "true"/>
        <!--  <framework src="TwilioVoice" type="podspec" spec="~> 2.0.0" />  -->
 
 

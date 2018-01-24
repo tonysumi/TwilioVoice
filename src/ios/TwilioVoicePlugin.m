@@ -443,7 +443,7 @@
 // All CallKit Integration Code comes from https://github.com/twilio/voice-callkit-quickstart-objc/blob/master/ObjCVoiceCallKitQuickstart/ViewController.m
 
 - (void)providerDidReset:(CXProvider *)provider {
-    [TwilioVoice audioEnabled];
+    TwilioVoice.audioEnabled = YES;
 }
 
 - (void)providerDidBegin:(CXProvider *)provider {
@@ -451,11 +451,11 @@
 }
 
 - (void)provider:(CXProvider *)provider didActivateAudioSession:(AVAudioSession *)audioSession {
-    [TwilioVoice audioEnabled];
+   TwilioVoice.audioEnabled = YES;
 }
 
 - (void)provider:(CXProvider *)provider didDeactivateAudioSession:(AVAudioSession *)audioSession {
-    [TwilioVoice audioEnabled];
+   TwilioVoice.audioEnabled = NO;
 }
 
 - (void)provider:(CXProvider *)provider timedOutPerformingAction:(CXAction *)action {
@@ -465,7 +465,7 @@
 - (void)provider:(CXProvider *)provider performStartCallAction:(CXStartCallAction *)action {
     
     [TwilioVoice configureAudioSession];
-    
+     TwilioVoice.audioEnabled = NO;
     self.call = [TwilioVoice call:self.accessToken
                                             params:@{}
                                           delegate:self];
@@ -473,7 +473,7 @@
     if (!self.call) {
         [action fail];
     } else {
-        self.call.uuid = action.callUUID;
+      //  self.call.uuid = action.callUUID;
         [action fulfillWithDateStarted:[NSDate date]];
     }
 }
@@ -487,10 +487,10 @@
     //      completion block of the `reportNewIncomingCallWithUUID:update:completion:` method instead of in
     //      `provider:performAnswerCallAction:` per the WWDC examples.
     // [TwilioVoice configureAudioSession];
-    
+     TwilioVoice.audioEnabled = NO;
     self.call = [self.callInvite acceptWithDelegate:self];
     if (self.call) {
-        self.call.uuid = [action callUUID];
+      //  self.call.uuid = [action callUUID];
     }
     
     self.callInvite = nil;
@@ -500,7 +500,7 @@
 
 - (void)provider:(CXProvider *)provider performEndCallAction:(CXEndCallAction *)action {
     
-    [TwilioVoice audioEnabled];
+    TwilioVoice.audioEnabled = NO;
     
     if (self.callInvite && self.callInvite.state == TVOCallInviteStatePending) {
         [self.callInvite reject];

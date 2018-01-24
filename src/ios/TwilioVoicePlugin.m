@@ -263,7 +263,7 @@
     NSDictionary *callInviteProperties = @{
                                            @"from":callInvite.from,
                                            @"to":callInvite.to,
-                                           @"callSid":callInvite.callSid,
+                                           @"callSid":callInvite.sid,
                                            @"state":[self stringFromCallInviteState:callInvite.state]
                                            };
     if (self.enableCallKit) {
@@ -318,8 +318,8 @@
     if (call.to) {
         callProperties[@"to"] = call.to;
     }
-    if (call.callSid) {
-        callProperties[@"callSid"] = call.callSid;
+    if (call.sid) {
+        callProperties[@"callSid"] = call.sid;
     }
     callProperties[@"isMuted"] = [NSNumber numberWithBool:call.muted];
     NSString *callState = [self stringFromCallState:call.state];

@@ -86,8 +86,25 @@
         </config-file>
 
         <!-- Add Privacy Description for Microphone Usage -->
+        <preference name="MICROPHONE_USAGE_DESCRIPTION" default="This app needs microphone access"/>
         <config-file target="*-Info.plist" parent="NSMicrophoneUsageDescription">
           <string>The app uses the microphone for voice calls</string>
+        </config-file>
+
+        <preference name="PHOTOLIBRARY_ADD_USAGE_DESCRIPTION" default="This app needs write-access to photo library"/>
+        <config-file target="*-Info.plist" parent="NSPhotoLibraryAddUsageDescription">
+            <string>Allow SaBRO to access your camera and photos from library.</string>
+        </config-file>
+
+        <preference name="PHOTOLIBRARY_USAGE_DESCRIPTION" default="This app needs read/write-access photo library access"/>
+        <config-file target="*-Info.plist" parent="NSPhotoLibraryUsageDescription">
+            <string>Allow SaBRO to access your camera and photos from library.</string>
+        </config-file>
+
+        <preference name="CONTACTS_USAGE_DESCRIPTION" default="This app needs contacts access"/>
+        <config-file target="*-Info.plist" parent="NSContactsUsageDescription">
+            <string>"SaBRO" would like to access your phonebook. Allowing contact permission is required to access your contacts from application.
+We do not store your contacts on server until you copy it to SaBRO cloud.</string>
         </config-file>
 
         <!-- Add Incoming Call App Name for CallKit -->

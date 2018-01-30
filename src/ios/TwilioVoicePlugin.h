@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <Cordova/CDV.h>
+#import "TwilioVoice.h"
+
 
 @interface TwilioVoicePlugin : CDVPlugin <TVOCallDelegate, TVONotificationDelegate> { }
 
@@ -18,13 +20,13 @@
 - (void) isCallMuted: (CDVInvokedUrlCommand*)command;
 
 #pragma mark TVOCallDelegate
-- (void) callDidConnect:(nonnull TVOCall *)call;
-- (void) call:(nonnull TVOCall *)call didDisconnectWithError:(nullable NSError *)error;
-- (void) call:(nonnull TVOCall *)call didFailToConnectWithError:(nonnull NSError *)error;
+- (void) callDidConnect:(TVOCall *)call;
+- (void) call:(TVOCall *)call didDisconnectWithError:(NSError *)error;
+- (void) call:(TVOCall *)call didFailToConnectWithError:(NSError *)error;
 
 #pragma mark TVONotificationDelegate
-- (void)callInviteReceived:(nonnull TVOCallInvite *)callInvite;
-- (void)notificationError:(nonnull NSError *)error;
+- (void)callInviteReceived:(TVOCallInvite *)callInvite;
+- (void)notificationError:(NSError *)error;
 
 #pragma mark Cordova Integration methods for the plugin Delegate 
 - (void) javascriptCallback:(NSString *)event withArguments:(NSDictionary *)arguments;

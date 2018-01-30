@@ -257,7 +257,7 @@
 }
 
 #pragma mark TVONotificationDelegate
-- (void)callInviteReceived:(nonnull TVOCallInvite *)callInvite {
+- (void)callInviteReceived:(TVOCallInvite *)callInvite {
     NSLog(@"Call Invite Received: %@", callInvite.uuid);
     self.callInvite = callInvite;
     NSDictionary *callInviteProperties = @{
@@ -293,13 +293,13 @@
 
 }*/
 
-- (void)notificationError:(nonnull NSError *)error {
+- (void)notificationError:(NSError *)error {
     NSLog(@"Twilio Voice Notification Error: %@", [error localizedDescription]);
     [self javascriptErrorback:error];
 }
 
 #pragma mark TVOCallDelegate
-- (void) callDidConnect:(nonnull TVOCall *)call {
+- (void) callDidConnect:(TVOCall *)call {
     NSLog(@"callDidConnect:");
     self.call = call;
 
@@ -329,7 +329,7 @@
     [self javascriptCallback:@"oncalldidconnect" withArguments:callProperties];
     
 }
-- (void) call:(nonnull TVOCall *)call didDisconnectWithError:(nullable NSError *)error{
+- (void) call:(TVOCall *)call didDisconnectWithError:(NSError *)error{
 NSLog(@"Call disconnect with error: %@, %@", [call description], [error localizedDescription]);
     self.call = nil;
     [self javascriptErrorback:error];
@@ -347,7 +347,7 @@ NSLog(@"Call disconnect with error: %@, %@", [call description], [error localize
     [self javascriptCallback:@"oncalldiddisconnect"];
 }*/
 
-- (void) call:(nonnull TVOCall *)call didFailToConnectWithError:(nonnull NSError *)error {
+- (void) call:(TVOCall *)call didFailToConnectWithError:(NSError *)error {
     NSLog(@"Call Did Fail with Error: %@, %@", [call description], [error localizedDescription]);
     self.call = nil;
     [self javascriptErrorback:error];

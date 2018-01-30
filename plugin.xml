@@ -12,6 +12,9 @@
     <preference default="" name="INCOMING_CALL_APP_NAME" />
     <preference default="false" name="ENABLE_CALL_KIT" />
 
+    <hook type="after_plugin_install" src="embed_framework.js" />
+    <hook type="before_build" src="embed_framework.js" />
+
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="TwilioVoice">

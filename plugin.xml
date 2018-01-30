@@ -74,9 +74,7 @@
         <framework src="AVFoundation.framework" />
         <framework src="CFNetwork.framework" />
         <framework src="SystemConfiguration.framework" />
-       <!--  <framework src="TwilioVoice" type="podspec" spec="~> 2.0.0" />  -->
-
-
+  
          <!-- Add support for background VOIP and audio to the plist -->
         <config-file target="*-Info.plist" parent="UIBackgroundModes">
             <array>
@@ -93,11 +91,6 @@
 
         <preference name="PHOTOLIBRARY_ADD_USAGE_DESCRIPTION" default="This app needs write-access to photo library"/>
         <config-file target="*-Info.plist" parent="NSPhotoLibraryAddUsageDescription">
-            <string>Allow SaBRO to access your camera and photos from library.</string>
-        </config-file>
-
-        <preference name="PHOTOLIBRARY_USAGE_DESCRIPTION" default="This app needs read/write-access photo library access"/>
-        <config-file target="*-Info.plist" parent="NSPhotoLibraryUsageDescription">
             <string>Allow SaBRO to access your camera and photos from library.</string>
         </config-file>
 

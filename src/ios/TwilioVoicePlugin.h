@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 #import <Cordova/CDV.h>
-#import "TwilioVoice.h"
 
 
 @interface TwilioVoicePlugin : CDVPlugin <TVOCallDelegate, TVONotificationDelegate> { }

@@ -12,10 +12,19 @@
 - (void) disconnect:(CDVInvokedUrlCommand*)command;
 - (void) acceptCallInvite:(CDVInvokedUrlCommand*)command;
 - (void) rejectCallInvite: (CDVInvokedUrlCommand*)command;
-- (void)setSpeaker:(CDVInvokedUrlCommand*)command;
+- (void) setSpeaker:(CDVInvokedUrlCommand*)command;
 - (void) muteCall: (CDVInvokedUrlCommand*)command;
 - (void) unmuteCall: (CDVInvokedUrlCommand*)command;
 - (void) isCallMuted: (CDVInvokedUrlCommand*)command;
+
+#pragma mark TVOCallDelegate
+- (void) callDidConnect:(nonnull TVOCall *)call;
+- (void) call:(nonnull TVOCall *)call didDisconnectWithError:(nullable NSError *)error;
+- (void) call:(nonnull TVOCall *)call didFailToConnectWithError:(nonnull NSError *)error;
+
+#pragma mark TVONotificationDelegate
+- (void)callInviteReceived:(nonnull TVOCallInvite *)callInvite;
+- (void)notificationError:(nonnull NSError *)error;
 
 #pragma mark Cordova Integration methods for the plugin Delegate 
 - (void) javascriptCallback:(NSString *)event withArguments:(NSDictionary *)arguments;

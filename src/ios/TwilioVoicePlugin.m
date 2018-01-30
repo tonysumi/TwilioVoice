@@ -257,7 +257,7 @@
 }
 
 #pragma mark TVONotificationDelegate
-- (void)callInviteReceived:(TVOCallInvite *)callInvite {
+- (void)callInviteReceived:(nonnull TVOCallInvite *)callInvite {
     NSLog(@"Call Invite Received: %@", callInvite.uuid);
     self.callInvite = callInvite;
     NSDictionary *callInviteProperties = @{
@@ -279,27 +279,27 @@
 }
 
 
-- (void)callinvitecanceled:(TVOCallInvite *)callInvite {
+/*- (void)callinvitecanceled:(TVOCallInvite *)callInvite {
     NSLog(@"Call Invite Cancelled: %@", callInvite.uuid);
     if (self.enableCallKit) {
         [self performEndCallActionWithUUID:callInvite.uuid];
     } else {
-     /*   [self cancelNotification];
+     //   [self cancelNotification];
         //pause ringtone
-        [self.ringtonePlayer pause];*/
+     //   [self.ringtonePlayer pause];
     }
     self.callInvite = nil;
     [self javascriptCallback:@"oncallinvitecanceled"];
 
-}
+}*/
 
-- (void)notificationError:(NSError *)error {
+- (void)notificationError:(nonnull NSError *)error {
     NSLog(@"Twilio Voice Notification Error: %@", [error localizedDescription]);
     [self javascriptErrorback:error];
 }
 
 #pragma mark TVOCallDelegate
-- (void)callDidConnect:(TVOCall *)call {
+- (void) callDidConnect:(nonnull TVOCall *)call {
     NSLog(@"callDidConnect:");
     self.call = call;
 
@@ -329,8 +329,13 @@
     [self javascriptCallback:@"oncalldidconnect" withArguments:callProperties];
     
 }
+- (void) call:(nonnull TVOCall *)call didDisconnectWithError:(nullable NSError *)error{
+NSLog(@"Call disconnect with error: %@, %@", [call description], [error localizedDescription]);
+    self.call = nil;
+    [self javascriptErrorback:error];
+}
 
-- (void)callDidDisconnect:(TVOCall *)call {    
+/*- (void)callDidDisconnect:(TVOCall *)call {    
 	    NSLog(@"callDidDisconnect:");
 
     // Call Kit Integration
@@ -340,9 +345,9 @@
     
     self.call = nil;
     [self javascriptCallback:@"oncalldiddisconnect"];
-}
+}*/
 
-- (void)call:(TVOCall *)call didFailWithError:(NSError *)error {
+- (void) call:(nonnull TVOCall *)call didFailToConnectWithError:(nonnull NSError *)error {
     NSLog(@"Call Did Fail with Error: %@, %@", [call description], [error localizedDescription]);
     self.call = nil;
     [self javascriptErrorback:error];

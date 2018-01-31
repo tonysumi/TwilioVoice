@@ -65,8 +65,8 @@
 
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
-            <feature name="TwilioVoice">
-                <param name="ios-package" value="TwilioVoice" />
+            <feature name="TwilioVoicePlugin">
+                <param name="ios-package" value="TwilioVoicePlugin" />
             </feature>
         </config-file>
         <framework src="TwilioVoice.framework" custom="true" embed = "true"/>

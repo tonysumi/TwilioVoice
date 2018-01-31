@@ -47,16 +47,18 @@
     TwilioPlugin.TwilioVoiceClient.prototype.initialize = function(token) {
 
         var error = function(error) {
+        	alert(123);
             //TODO: Handle errors here
             if(delegate['onerror']) delegate['onerror'](error)
         }
 
         var success = function(callback) {
+        	alert(111);
             var argument = callback['arguments'];
             if (delegate[callback['callback']]) delegate[callback['callback']](argument);
         }
 
-
+        alert(token);
         Cordova.exec(success,error,"TwilioVoicePlugin","initializeWithAccessToken",[token]);
     }
 
